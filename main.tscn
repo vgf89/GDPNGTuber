@@ -1,0 +1,440 @@
+[gd_scene load_steps=20 format=2]
+
+[ext_resource path="res://Scripts/VerticalMovementSlider.gd" type="Script" id=1]
+[ext_resource path="res://Scripts/main.gd" type="Script" id=2]
+[ext_resource path="res://Scripts/Avatar.gd" type="Script" id=3]
+[ext_resource path="res://Scripts/DelaySlider.gd" type="Script" id=4]
+[ext_resource path="res://Scripts/Configuration.gd" type="Script" id=5]
+[ext_resource path="res://Scripts/Values.gd" type="Script" id=6]
+[ext_resource path="res://Scripts/thresholdSlider.gd" type="Script" id=7]
+[ext_resource path="res://Scripts/volumeTextureProgress.gd" type="Script" id=8]
+[ext_resource path="res://Images/icon.png" type="Texture" id=9]
+[ext_resource path="res://Scripts/MicrophoneDropdown.gd" type="Script" id=10]
+[ext_resource path="res://Images/ReloadSmall.svg" type="Texture" id=11]
+[ext_resource path="res://Scripts/ScaleSlider.gd" type="Script" id=12]
+[ext_resource path="res://Scripts/FilterCheckbox.gd" type="Script" id=13]
+[ext_resource path="res://Images/TripleBar.svg" type="Texture" id=14]
+[ext_resource path="res://Scripts/IdleDimSlider.gd" type="Script" id=15]
+[ext_resource path="res://Scripts/SettingsPanel.gd" type="Script" id=16]
+[ext_resource path="res://Scripts/AnimationSpeedSlider.gd" type="Script" id=17]
+[ext_resource path="res://Scripts/TransparencySlider.gd" type="Script" id=18]
+
+[sub_resource type="AudioStreamMicrophone" id=1]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Configuration" type="Node" parent="."]
+script = ExtResource( 5 )
+
+[node name="Values" type="Node" parent="."]
+script = ExtResource( 6 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+anchor_mode = 0
+current = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Avatar" type="Control" parent="CanvasLayer"]
+margin_left = 5.0
+margin_top = 5.0
+margin_right = 5.0
+margin_bottom = 5.0
+script = ExtResource( 3 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sprite" type="Sprite" parent="CanvasLayer/Avatar"]
+texture = ExtResource( 9 )
+centered = false
+
+[node name="Panel" type="Panel" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -200.0
+margin_bottom = 460.0
+script = ExtResource( 16 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="ImagesLabel" type="Label" parent="CanvasLayer/Panel"]
+anchor_right = 1.0
+margin_top = 20.0
+margin_bottom = 34.0
+grow_horizontal = 0
+text = "Images"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IdleImageButton" type="Button" parent="CanvasLayer/Panel/ImagesLabel"]
+anchor_right = 1.0
+margin_left = 20.0
+margin_top = 20.0
+margin_right = -20.0
+margin_bottom = 45.0
+text = "Idle"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="talkingImageButton" type="Button" parent="CanvasLayer/Panel/ImagesLabel"]
+anchor_right = 1.0
+margin_left = 20.0
+margin_top = 50.0
+margin_right = -20.0
+margin_bottom = 75.0
+text = "Talking"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="FilterCheckbox" type="CheckBox" parent="CanvasLayer/Panel/ImagesLabel"]
+margin_left = 20.0
+margin_top = 80.0
+margin_right = 132.0
+margin_bottom = 104.0
+text = "Filter Images"
+script = ExtResource( 13 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SensitivityControl" type="Label" parent="CanvasLayer/Panel"]
+anchor_right = 1.0
+margin_top = 185.0
+margin_bottom = 199.0
+text = "Volume Sensitivity (dB)"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Volume" type="TextureProgress" parent="CanvasLayer/Panel/SensitivityControl"]
+anchor_right = 1.0
+margin_left = 8.0
+margin_top = 15.0
+margin_right = -8.0
+margin_bottom = 35.0
+min_value = -100.0
+max_value = 0.0
+step = 0.0
+value = -100.0
+texture_progress = ExtResource( 9 )
+nine_patch_stretch = true
+script = ExtResource( 8 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Sensitivity" type="HSlider" parent="CanvasLayer/Panel/SensitivityControl"]
+anchor_right = 1.0
+margin_left = 5.0
+margin_top = 11.0
+margin_right = -40.0
+margin_bottom = 40.0
+min_value = -100.0
+max_value = 0.0
+step = 0.5
+value = -100.0
+script = ExtResource( 7 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/SensitivityControl"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -35.0
+margin_top = 15.0
+margin_right = -5.0
+margin_bottom = 29.0
+
+[node name="Delay" type="Label" parent="CanvasLayer/Panel"]
+anchor_right = 1.0
+margin_top = 225.0
+margin_bottom = 239.0
+text = "Idle Delay (s)"
+align = 1
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Panel/Delay"]
+anchor_right = 1.0
+margin_left = 5.0
+margin_top = 15.0
+margin_right = -40.0
+margin_bottom = 31.0
+max_value = 1.0
+step = 0.01
+script = ExtResource( 4 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/Delay"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -35.0
+margin_top = 15.0
+margin_right = -5.0
+margin_bottom = 29.0
+
+[node name="MicrophoneLabel" type="Label" parent="CanvasLayer/Panel"]
+anchor_right = 1.0
+margin_top = 135.0
+margin_bottom = 149.0
+text = "Microphone"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MicrophoneDropdown" type="OptionButton" parent="CanvasLayer/Panel/MicrophoneLabel"]
+anchor_right = 1.0
+margin_left = 10.0
+margin_top = 20.0
+margin_right = -40.0
+margin_bottom = 40.0
+clip_text = true
+script = ExtResource( 10 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Button" type="Button" parent="CanvasLayer/Panel/MicrophoneLabel"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -35.0
+margin_top = 20.0
+margin_right = -10.0
+margin_bottom = 40.0
+icon = ExtResource( 11 )
+
+[node name="Scale" type="Label" parent="CanvasLayer/Panel"]
+anchor_right = 1.0
+margin_top = 260.0
+margin_bottom = 274.0
+text = "Scale"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Panel/Scale"]
+anchor_right = 1.0
+margin_left = 5.0
+margin_top = 15.0
+margin_right = -40.0
+margin_bottom = 31.0
+min_value = 0.05
+max_value = 10.0
+step = 0.05
+value = 1.0
+exp_edit = true
+script = ExtResource( 12 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/Scale"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -35.0
+margin_top = 15.0
+margin_right = -5.0
+margin_bottom = 29.0
+
+[node name="VerticalMovement" type="Label" parent="CanvasLayer/Panel"]
+anchor_right = 1.0
+margin_top = 305.0
+margin_bottom = 319.0
+text = "Vertical Movement"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Panel/VerticalMovement"]
+anchor_right = 1.0
+margin_left = 5.0
+margin_top = 15.0
+margin_right = -40.0
+margin_bottom = 31.0
+max_value = 300.0
+value = 1.0
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/VerticalMovement"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -35.0
+margin_top = 15.0
+margin_right = -5.0
+margin_bottom = 29.0
+
+[node name="AnimationSpeed" type="Label" parent="CanvasLayer/Panel"]
+anchor_right = 1.0
+margin_top = 345.0
+margin_bottom = 359.0
+text = "Animation Speed"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Panel/AnimationSpeed"]
+anchor_right = 1.0
+margin_left = 5.0
+margin_top = 15.0
+margin_right = -40.0
+margin_bottom = 31.0
+min_value = 0.01
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource( 17 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/AnimationSpeed"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -35.0
+margin_top = 15.0
+margin_right = -5.0
+margin_bottom = 29.0
+
+[node name="Idle Dim" type="Label" parent="CanvasLayer/Panel"]
+anchor_right = 1.0
+margin_top = 380.0
+margin_bottom = 394.0
+text = "Idle Dim"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Panel/Idle Dim"]
+anchor_right = 1.0
+margin_left = 5.0
+margin_top = 15.0
+margin_right = -40.0
+margin_bottom = 31.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/Idle Dim"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -35.0
+margin_top = 15.0
+margin_right = -5.0
+margin_bottom = 29.0
+
+[node name="Idle Transparency" type="Label" parent="CanvasLayer/Panel"]
+anchor_right = 1.0
+margin_top = 415.0
+margin_bottom = 429.0
+text = "Idle Transparency"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="HSlider" type="HSlider" parent="CanvasLayer/Panel/Idle Transparency"]
+anchor_right = 1.0
+margin_left = 5.0
+margin_top = 15.0
+margin_right = -40.0
+margin_bottom = 31.0
+max_value = 1.0
+step = 0.01
+value = 1.0
+script = ExtResource( 18 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/Panel/Idle Transparency"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -35.0
+margin_top = 15.0
+margin_right = -5.0
+margin_bottom = 29.0
+
+[node name="SettingsToggle" type="CheckBox" parent="CanvasLayer"]
+anchor_left = 1.0
+anchor_right = 1.0
+margin_left = -25.0
+margin_bottom = 25.0
+focus_mode = 0
+custom_icons/checked = ExtResource( 14 )
+custom_icons/unchecked = ExtResource( 14 )
+pressed = true
+action_mode = 0
+enabled_focus_mode = 0
+flat = true
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TalkingImageDialog" type="FileDialog" parent="CanvasLayer"]
+margin_right = 588.0
+margin_bottom = 372.0
+window_title = "Open a File"
+dialog_text = "Selecct Idle Image File"
+mode = 0
+access = 2
+current_dir = "/repos/PNGTuber"
+current_path = "/repos/PNGTuber/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="IdleImageDialog" type="FileDialog" parent="CanvasLayer"]
+margin_right = 588.0
+margin_bottom = 372.0
+window_title = "Open a File"
+dialog_text = "Selecct Idle Image File"
+mode = 0
+access = 2
+current_dir = "/repos/PNGTuber"
+current_path = "/repos/PNGTuber/"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = SubResource( 1 )
+autoplay = true
+bus = "Record"
+
+[connection signal="button_down" from="CanvasLayer/Panel/ImagesLabel/IdleImageButton" to="CanvasLayer/Avatar" method="select_idle_image_slot"]
+[connection signal="button_down" from="CanvasLayer/Panel/ImagesLabel/talkingImageButton" to="CanvasLayer/Avatar" method="select_talking_image_slot"]
+[connection signal="toggled" from="CanvasLayer/Panel/ImagesLabel/FilterCheckbox" to="CanvasLayer/Avatar" method="set_filter"]
+[connection signal="value_changed" from="CanvasLayer/Panel/SensitivityControl/Sensitivity" to="CanvasLayer/Panel/SensitivityControl/Sensitivity" method="_on_thresholdSlider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/Delay/HSlider" to="CanvasLayer/Panel/Delay/HSlider" method="_on_HSlider_value_changed"]
+[connection signal="item_selected" from="CanvasLayer/Panel/MicrophoneLabel/MicrophoneDropdown" to="CanvasLayer/Panel/MicrophoneLabel/MicrophoneDropdown" method="_on_MicrophoneDropdown_item_selected"]
+[connection signal="pressed" from="CanvasLayer/Panel/MicrophoneLabel/Button" to="CanvasLayer/Panel/MicrophoneLabel/MicrophoneDropdown" method="_on_ReloadButton_pressed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/Scale/HSlider" to="CanvasLayer/Panel/Scale/HSlider" method="_on_scaleSlider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/VerticalMovement/HSlider" to="CanvasLayer/Panel/VerticalMovement/HSlider" method="_on_HSlider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/AnimationSpeed/HSlider" to="CanvasLayer/Panel/AnimationSpeed/HSlider" method="_on_HSlider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/Idle Dim/HSlider" to="CanvasLayer/Panel/Idle Dim/HSlider" method="_on_HSlider_value_changed"]
+[connection signal="value_changed" from="CanvasLayer/Panel/Idle Transparency/HSlider" to="CanvasLayer/Panel/Idle Transparency/HSlider" method="_on_HSlider_value_changed"]
+[connection signal="toggled" from="CanvasLayer/SettingsToggle" to="CanvasLayer/Panel" method="_on_SettingsToggle_toggled"]
+[connection signal="file_selected" from="CanvasLayer/TalkingImageDialog" to="CanvasLayer/Avatar" method="change_talking_image"]
+[connection signal="file_selected" from="CanvasLayer/IdleImageDialog" to="CanvasLayer/Avatar" method="change_idle_image"]
