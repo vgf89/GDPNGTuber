@@ -55,6 +55,12 @@ func set_filter(mode:bool):
 	change_talking_image(config.talkingImage)
 	change_idle_image(config.idleImage)
 
+func resetIdleImage():
+	change_idle_image(config.defaultImage)
+	
+func resetTalkingImage():
+	change_talking_image(config.defaultImage)
+
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
 	$Sprite.scale.x = config.scale
